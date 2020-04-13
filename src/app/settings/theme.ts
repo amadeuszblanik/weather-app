@@ -1,6 +1,127 @@
 export default {
-    colors: {
-        primary: "#0f0fa0",
-        secondary: "#9d9e9f"
-    }
+  palette: {
+    main: "#300032",
+    accent: "#c43235",
+    light: "#e6e6e8",
+    dark: "#040404",
+    dark300: "#070613",
+
+    gray: "#a0a0a0",
+    red: "#ff3b30",
+    pink: "#ff2d55",
+    purple: "#5856d6",
+    orange: "#ff9500",
+    yellow: "#ffcc00",
+    tealBlue: "#5ac8fa",
+    blue: "#007aff",
+    green: "#4cd964",
+    // dark: "#14171a",
+    // light: "#f5f8fa",
+  },
+  paletteSocial: {
+    facebook: "#3b5998",
+    messenger: "#3b5998",
+    twitter: "#1da1f2",
+    youtube: "#ff0000",
+    instagram: "#c32aa3",
+    pinterest: "#bd081c",
+    linkedin: "#007bb5",
+    google: "#4285f4",
+    snapchat: "#fffc00",
+    whatsapp: "#25d366",
+    tumblr: "#35465d",
+    reddit: "#ff4500",
+    mastodon: "#2b90d9",
+    spotify: "#1ed760",
+    apple: "#a6b1b7",
+    amazon: "#ff9900",
+    microsoft: "#f35022",
+    periscope: "#40a4c4",
+    foursquare: "#f94877",
+    swarm: "#ffa633",
+    medium: "#02b875",
+    vimeo: "#1ab7ea",
+    skype: "#00aff0",
+    android: "#a4c639",
+    quora: "#aa2200",
+    dribble: "#ea4c89",
+    slack: "#4a154b",
+    stumbleupon: "#e94826",
+    flickr: "#f40083",
+    yahoo: "#430297",
+    twitch: "#6441a4",
+    soundcloud: "#ff5500",
+    deviantart: "#05cc47",
+    pocket: "#ee4056",
+    slideshare: "#e68523",
+    px500: "#0099e5",
+    vk: "#4a76a8",
+    steam: "#171A21",
+    discord: "#7289da",
+    telegram: "#0088cc",
+    clarity: "#61bed9",
+    listly: "#df6d46",
+    vine: "#00b489",
+    github: "#c43235",
+  },
+
+  grid: {
+    sizes: {
+      mobile: 4,
+      tablet: 8,
+      desktop: 12,
+    },
+    gap: {
+      mobile: 16,
+      tablet: 24,
+    },
+  },
+
+  text: {
+    h1: {
+      fontSize: "1.75rem",
+      fontWeight: 400,
+    },
+    h2: {
+      fontSize: "1.5rem",
+      fontWeight: 400,
+    },
+    h3: {
+      fontSize: "1.25rem",
+      fontWeight: 400,
+    },
+    h4: {
+      fontSize: "1.125rem",
+      fontWeight: 400,
+    },
+    h5: {
+      fontSize: "1rem",
+      fontWeight: 400,
+    },
+    h6: {
+      fontSize: "0.875rem",
+      fontWeight: 400,
+    },
+    p: {
+      fontSize: "1rem",
+      fontWeight: 400,
+    },
+  },
+
+  space: {
+    xs: "2px",
+    s: "4px",
+    m: "8px",
+    l: "16px",
+    xl: "24px",
+    xxl: "32px",
+  },
+
+  breakpoints: {
+    xs: 0,
+    sm: 520,
+    md: 720,
+    lg: 840,
+    xl: 1280,
+  },
 };
