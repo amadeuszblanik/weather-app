@@ -21,16 +21,19 @@ const City: NextPage<CityPageProps> = ({ cityName }) => (
   <Main>
     <Title>Hello {cityName}!</Title>
     <Card variant="purple">
+      <Text variant="display" align="center">25°</Text>
       <Box alignX="center" padding={{ y: { bottom: "s" } }}>
-        <Text variant="display">25°</Text>
+        <Text variant="p" opacity={0.82}>
+          in {cityName}
+        </Text>
       </Box>
-      <Box alignX="center" padding={{ y: { bottom: "s" } }}>
+      <Box alignX="center" padding={{ y: { top: "s", bottom: "m" } }}>
         <Text variant="p">Clouds & sun</Text>
       </Box>
       <Box alignX="center" padding={{ y: { bottom: "s" } }}>
         <Text variant="h3">Humidity</Text>
       </Box>
-      <Text variant="h5" align="center" opacity={0.66}>
+      <Text variant="h5" align="center" opacity={0.37}>
         35°
       </Text>
     </Card>
