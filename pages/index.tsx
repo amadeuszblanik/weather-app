@@ -1,23 +1,38 @@
-import React from "react";
-import styled from "styled-components";
+import React, {useCallback, useRef} from "react";
+import {NextPage} from "next";
 import {Main} from "../src/app/layout";
+import {useRefCurrent} from "../src/app/hook";
 
-const Title = styled.h1`
-  color: ${({theme}) => theme.colors.primary};
-  font-size: 50px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-`;
+const Index: NextPage = () => {
+  const ref = useRef<HTMLInputElement | null>(null);
 
-Title.displayName = "Title";
+  const handleSubmit = useCallback((event: React.MouseEvent) => {
+    event.preventDefault();
 
-const Index: React.FunctionComponent = () => {
-    return (
-        <Main>
-            <Title>
-                Hello World!
-            </Title>
-        </Main>
-    );
+    const current = useRefCurrent<HTMLInputElement>(ref);
+
+    if (typeof location !== "object") {
+      throw new Error("Location is not valid object");
+    }
+
+    if (!current) {
+      return;
+    }
+
+    location.href = `city/${current.value}`;
+
+  }, [ref])
+
+  return (
+    <Main>
+      <form>
+        <input ref={ref}/>
+        <button onClick={handleSubmit}>
+          Go
+        </button>
+      </form>
+    </Main>
+  );
 };
 
 export default Index;
