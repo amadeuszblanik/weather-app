@@ -3,9 +3,13 @@ import styled from "styled-components";
 import { Main } from "../src/app/layout";
 import { NextPage } from "next";
 import { Box, Card, Text } from "../src/app/components";
+import { OpenweatherAPI } from "../src/app/dao";
+import { OpenweatherAPIForecastResponse } from "../src/app/dto/OpenweatherAPI/types";
+import {fahrenheitToCelsius} from "../src/app/utils";
 
 interface CityPageProps {
   cityName: string;
+  forecast: OpenweatherAPIForecastResponse;
 }
 
 const Title = styled.h1`
@@ -17,26 +21,30 @@ const Title = styled.h1`
 
 Title.displayName = "Title";
 
-const City: NextPage<CityPageProps> = ({ cityName }) => (
+const City: NextPage<CityPageProps> = ({ cityName, forecast }) => (
   <Main>
     <Title>Hello {cityName}!</Title>
-    <Card variant="purple">
-      <Text variant="display" align="center">25°</Text>
-      <Box alignX="center" padding={{ y: { bottom: "s" } }}>
-        <Text variant="p" opacity={0.82}>
-          in {cityName}
+    {forecast.list.map((item, idx) => (
+      <Card key={idx} variant="purple">
+        <Text variant="display" align="center">
+          {item.main.temp}°
         </Text>
-      </Box>
-      <Box alignX="center" padding={{ y: { top: "s", bottom: "m" } }}>
-        <Text variant="p">Clouds & sun</Text>
-      </Box>
-      <Box alignX="center" padding={{ y: { bottom: "s" } }}>
-        <Text variant="h3">Humidity</Text>
-      </Box>
-      <Text variant="h5" align="center" opacity={0.37}>
-        35°
-      </Text>
-    </Card>
+        <Box alignX="center" padding={{ y: { bottom: "s" } }}>
+          <Text variant="p" opacity={0.82}>
+            in {cityName}
+          </Text>
+        </Box>
+        <Box alignX="center" padding={{ y: { top: "s", bottom: "m" } }}>
+          <Text variant="p">{item.weather.main}</Text>
+        </Box>
+        <Box alignX="center" padding={{ y: { bottom: "s" } }}>
+          <Text variant="h3">{item.weather.description}</Text>
+        </Box>
+        <Text variant="h5" align="center" opacity={0.37}>
+          {item.main.feels_like}°
+        </Text>
+      </Card>
+    ))}
   </Main>
 );
 
@@ -47,7 +55,11 @@ City.getInitialProps = async (ctx: NextPageContext) => {
     query: { cityName },
   } = ctx;
 
-  return { cityName };
+  const forecast = await new OpenweatherAPI(cityName).getForecast();
+
+  console.debug(forecast);
+
+  return { cityName, forecast };
 };
 
 export default City;
