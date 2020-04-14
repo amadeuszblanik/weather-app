@@ -57,7 +57,11 @@ const Image: ImageComponent<ImageProps> = ({ src, alt, width, height, inlineSVG,
     }, []);
   }
 
-  return <StyledFigure ref={ref} width={width!} height={height!}>{loaded ? <img src={src} alt={alt} /> : <Loader />}</StyledFigure>;
+  return (
+    <StyledFigure ref={ref} width={width!} height={height!}>
+      {loaded ? <img src={src} alt={alt} /> : <Loader />}
+    </StyledFigure>
+  );
 };
 
 Image.defaultProps = {
