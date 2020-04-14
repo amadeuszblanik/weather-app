@@ -8,15 +8,17 @@ import { useIntersection } from "../../hook";
 interface ImageProps {
   src: string;
   alt?: string;
+  width?: string;
+  height?: string;
   inlineSVG?: boolean;
   lazyLoading?: boolean;
 }
 
 type ImageComponent<P> = React.FunctionComponent<P>;
 
-const StyledFigure = styled.figure`
-  width: 100%;
-  height: 100%;
+const StyledFigure = styled.figure<{ width: string; height: string }>`
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
   margin: 0;
   padding: 0;
   ${makeFlex({ display: "flex", x: "center", y: "middle" })}
@@ -29,7 +31,7 @@ const StyledFigure = styled.figure`
   }
 `;
 
-const Image: ImageComponent<ImageProps> = ({ src, alt, inlineSVG, lazyLoading }) => {
+const Image: ImageComponent<ImageProps> = ({ src, alt, width, height, inlineSVG, lazyLoading }) => {
   const [loaded, setLoaded] = useState<boolean>(!lazyLoading ? true : false);
   const { ref, intersectionRatio } = useIntersection();
 
@@ -55,11 +57,13 @@ const Image: ImageComponent<ImageProps> = ({ src, alt, inlineSVG, lazyLoading })
     }, []);
   }
 
-  return <StyledFigure ref={ref}>{loaded ? <img src={src} alt={alt} /> : <Loader />}</StyledFigure>;
+  return <StyledFigure ref={ref} width={width!} height={height!}>{loaded ? <img src={src} alt={alt} /> : <Loader />}</StyledFigure>;
 };
 
 Image.defaultProps = {
   alt: "image",
+  width: "100%",
+  height: "100%",
   lazyLoading: true,
 };
 

@@ -121,6 +121,17 @@ export default {
     xxl: "32px",
   },
 
+  icon: {
+    size: {
+      xs: "16px",
+      s: "24px",
+      m: "32px",
+      l: "48px",
+      xl: "64px",
+      xxl: "72px",
+    },
+  },
+
   breakpoints: {
     xs: 0,
     sm: 520,
