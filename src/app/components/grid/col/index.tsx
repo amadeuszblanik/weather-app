@@ -19,7 +19,7 @@ const StyledCol = styled(Grid.Unit)`
   }
 `;
 
-const Col: ColComponent<ColProps> = props => {
+const Col: ColComponent<ColProps> = (props) => {
   const { children, mobile, tablet, desktop } = props;
   const {
     grid: { sizes },

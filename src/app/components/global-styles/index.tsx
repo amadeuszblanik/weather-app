@@ -2,8 +2,6 @@ import { createGlobalStyle } from "styled-components";
 import Theme from "../../settings/theme";
 
 const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap');
-
   html, body {
     color: ${Theme.palette.light};
     background: ${Theme.palette.dark};

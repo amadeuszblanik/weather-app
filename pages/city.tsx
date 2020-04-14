@@ -5,7 +5,6 @@ import { NextPage } from "next";
 import { Box, Card, Text } from "../src/app/components";
 import { OpenweatherAPI } from "../src/app/dao";
 import { OpenweatherAPIForecastResponse } from "../src/app/dto/OpenweatherAPI/types";
-import {fahrenheitToCelsius} from "../src/app/utils";
 
 interface CityPageProps {
   cityName: string;
@@ -35,10 +34,10 @@ const City: NextPage<CityPageProps> = ({ cityName, forecast }) => (
           </Text>
         </Box>
         <Box alignX="center" padding={{ y: { top: "s", bottom: "m" } }}>
-          <Text variant="p">{item.weather.main}</Text>
+          <Text variant="p">{item.weather[0].main}</Text>
         </Box>
         <Box alignX="center" padding={{ y: { bottom: "s" } }}>
-          <Text variant="h3">{item.weather.description}</Text>
+          <Text variant="h3">{item.weather[0].description}</Text>
         </Box>
         <Text variant="h5" align="center" opacity={0.37}>
           {item.main.feels_like}°

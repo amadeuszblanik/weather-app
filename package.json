@@ -23,7 +23,9 @@
     "next": "9.3.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "styled-components-grid": "^2.2.2",
+    "styled-normalize": "^8.0.7"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.5",
