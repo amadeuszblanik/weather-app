@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Main } from "../src/app/layout";
 import { NextPage } from "next";
-import { Box, Card, Text } from "../src/app/components";
+import { Box, Card, Text, WeatherIcon } from "../src/app/components";
 import { OpenweatherAPI } from "../src/app/dao";
 import { OpenweatherAPIForecastResponse } from "../src/app/dto/OpenweatherAPI/types";
-import WeatherIcon from "../src/app/components/weather-icon";
+import { unixTimestampToDate } from "../src/app/utils";
+import {roundHalf} from "../src/app/utils/roundHalf";
 
 interface CityPageProps {
   cityName: string;
@@ -24,13 +25,13 @@ Title.displayName = "Title";
 const City: NextPage<CityPageProps> = ({ cityName, forecast }) => (
   <Main>
     <Title>Hello {cityName}!</Title>
-    <Box display="block" width="full" padding={{ y: { bottom: "s" } }}>
+    <Box display="block" width="full" padding={{ y: { bottom: "xl" } }}>
       <Card variant="purple">
         <Text variant="p" align="right">
           Now
         </Text>
         <Text variant="display" align="center">
-          {forecast.list[0].main.temp}°
+          {roundHalf(Number(forecast.list[0].main.temp))}°
         </Text>
         <Box alignX="center" padding={{ y: { bottom: "s" } }}>
           <Text variant="p" opacity={0.82}>
@@ -47,37 +48,33 @@ const City: NextPage<CityPageProps> = ({ cityName, forecast }) => (
           <Text variant="p">{forecast.list[0].weather[0].description}</Text>
         </Box>
         <Text variant="h5" align="center" opacity={0.37}>
-          {forecast.list[0].main.feels_like}°
+          {Number(forecast.list[0].main.feels_like).toFixed(2)}°
         </Text>
       </Card>
     </Box>
-    {forecast.list.map((item, idx) => (
-      <Card key={idx} variant="purple">
-        <Text variant="p" align="right">
-          Now
-        </Text>
-        <Text variant="display" align="center">
-          {item.main.temp}°
-        </Text>
-        <Box alignX="center" padding={{ y: { bottom: "s" } }}>
-          <Text variant="p" opacity={0.82}>
-            in {cityName}
+    <Box width="full" overflowX="scroll">
+      {forecast.list.map((item, idx) => (
+        <Box key={idx} alignX="center" flexDirection="column" margin={{ x: "m" }}>
+          <Box alignX="center" alignY="middle" padding={{ y: { bottom: "s" } }}>
+            <Text variant="h3" align="center">
+              {roundHalf(Number(item.main.temp))}°
+            </Text>
+          </Box>
+          <Box alignX="center">
+            <WeatherIcon code={item.weather[0].icon} size="xl" />
+          </Box>
+          <Text variant="h4" align="center">
+            {item.weather[0].main}
+          </Text>
+          <Text variant="p" align="center">
+            {unixTimestampToDate(item.dt).getHours()}:
+            {unixTimestampToDate(item.dt).getMinutes() < 10
+              ? `0${unixTimestampToDate(item.dt).getMinutes()}`
+              : unixTimestampToDate(item.dt).getMinutes()}
           </Text>
         </Box>
-        <Box alignX="center" alignY="middle" padding={{ y: { bottom: "s" } }}>
-          <WeatherIcon code={item.weather[0].icon} size="xl" />
-          <Box padding={{ x: { left: "s", right: "xl" } }}>
-            <Text variant="h3">{item.weather[0].main}</Text>
-          </Box>
-        </Box>
-        <Box alignX="center" padding={{ y: { top: "s", bottom: "m" } }}>
-          <Text variant="p">{item.weather[0].description}</Text>
-        </Box>
-        <Text variant="h5" align="center" opacity={0.37}>
-          {item.main.feels_like}°
-        </Text>
-      </Card>
-    ))}
+      ))}
+    </Box>
   </Main>
 );
 

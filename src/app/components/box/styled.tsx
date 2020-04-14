@@ -12,5 +12,7 @@ export const StyledBox = styled.div<StyledBoxProps>`
   ${({ width }) => (width ? `width: ${width};` : "")}
   ${({ height }) => (height ? `height: ${height};` : "")}
   ${({ minHeight }) => (minHeight ? `min-height: ${minHeight};` : "")}
+  ${({ overflowX }) => (overflowX ? `overflow-x: ${overflowX};` : "")}
+  ${({ overflowY }) => (overflowY ? `overflow-y: ${overflowY};` : "")}
   ${transition(["min-height", "height"])}
 `;

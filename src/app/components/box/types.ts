@@ -6,6 +6,7 @@ export type FlexY = "top" | "middle" | "bottom" | "justify";
 export type FlexDirection = "row" | "column";
 export type FlexAlignItems = "flex-start" | "center" | "flex-end" | "space-between";
 export type BoxSizes = "full" | "fullPage";
+export type Overflow = "hiddem" | "visible" | "auto" | "scroll";
 
 export interface BoxProps {
   display?: Display;
@@ -17,6 +18,8 @@ export interface BoxProps {
   width?: BoxSizes;
   height?: BoxSizes;
   minHeight?: BoxSizes;
+  overflowX?: Overflow;
+  overflowY?: Overflow;
 }
 
 export interface StyledBoxProps {
@@ -30,4 +33,6 @@ export interface StyledBoxProps {
   width?: string;
   height?: string;
   minHeight?: string;
+  overflowX?: Overflow;
+  overflowY?: Overflow;
 }

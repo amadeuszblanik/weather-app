@@ -14,6 +14,7 @@ const WeatherIcon: WeatherIconComponent = ({ code, size }) => (
     src={`http://openweathermap.org/img/wn/${code}@2x.png`}
     width={Theme.icon.size[size!]}
     height={Theme.icon.size[size!]}
+    lazyLoading={false}
   />
 );
 
