@@ -5,8 +5,8 @@ import { NextPage } from "next";
 import { Box, Card, Text, WeatherIcon } from "../src/app/components";
 import { OpenweatherAPI } from "../src/app/dao";
 import { OpenweatherAPIForecastResponse } from "../src/app/dto/OpenweatherAPI/types";
-import { unixTimestampToDate } from "../src/app/utils";
-import {roundHalf} from "../src/app/utils/roundHalf";
+import {dateTwoDigits, unixTimestampToDate} from "../src/app/utils";
+import { roundHalf } from "../src/app/utils/roundHalf";
 
 interface CityPageProps {
   cityName: string;
@@ -53,27 +53,33 @@ const City: NextPage<CityPageProps> = ({ cityName, forecast }) => (
       </Card>
     </Box>
     <Box width="full" overflowX="scroll">
-      {forecast.list.map((item, idx) => (
-        <Box key={idx} alignX="center" flexDirection="column" margin={{ x: "m" }}>
-          <Box alignX="center" alignY="middle" padding={{ y: { bottom: "s" } }}>
-            <Text variant="h3" align="center">
-              {roundHalf(Number(item.main.temp))}°
-            </Text>
-          </Box>
-          <Box alignX="center">
-            <WeatherIcon code={item.weather[0].icon} size="xl" />
-          </Box>
-          <Text variant="h4" align="center">
-            {item.weather[0].main}
-          </Text>
-          <Text variant="p" align="center">
-            {unixTimestampToDate(item.dt).getHours()}:
-            {unixTimestampToDate(item.dt).getMinutes() < 10
-              ? `0${unixTimestampToDate(item.dt).getMinutes()}`
-              : unixTimestampToDate(item.dt).getMinutes()}
-          </Text>
-        </Box>
-      ))}
+      {forecast.list
+        .filter((_item, idx) => idx !== 0)
+        .map((item, idx) => {
+          const date: Date = unixTimestampToDate(item.dt);
+
+          return (
+            <Box key={idx} alignX="center" flexDirection="column" margin={{ x: "m" }}>
+              <Box alignX="center" alignY="middle" padding={{ y: { bottom: "s" } }}>
+                <Text variant="h3" align="center">
+                  {roundHalf(Number(item.main.temp))}°
+                </Text>
+              </Box>
+              <Box alignX="center">
+                <WeatherIcon code={item.weather[0].icon} size="xl" />
+              </Box>
+              <Text variant="h4" align="center">
+                {item.weather[0].main}
+              </Text>
+              <Text variant="p" align="center">
+                <strong>{date.getDate()}</strong>/{dateTwoDigits(date.getMonth())}
+              </Text>
+              <Text variant="p" align="center">
+                {date.getHours()}:{dateTwoDigits(date.getMinutes())}
+              </Text>
+            </Box>
+          );
+        })}
     </Box>
   </Main>
 );
